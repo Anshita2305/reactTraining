@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 id="rp">Round played:</h1>
+    <h1 id="ct">Current total: </h1>
+    <h1 id="ca">Current average: </h1>
+    <button onclick="handleScore(1)">Score 1</button>
+    <button onclick="handleScore(2)">Score 2</button>
+    <button onclick="handleScore(3)">Score 3</button>
+
+    <script>
+    let roundPlayed=0, currentTotal=0, currentAverage=0;    
+    const handleScore =  (i) =>{
+       
+        roundPlayed++;
+        currentTotal = currentTotal + i;
+        currentAverage = currentTotal / roundPlayed;
+        let rp =document.getElementById('rp');
+                rp.innerText = "Round Played : "+ roundPlayed;
+                let ct =document.getElementById('ct');
+                ct.innerText = "Current total : " + currentTotal; 
+                let ca =document.getElementById('ca');
+                ca.innerText = "Current Average : " +currentAverage;  
+        console.log(roundPlayed, currentTotal, currentAverage);
+        if(roundPlayed==10){
+            document.querySelectorAll("button").forEach((button) => button.disabled=true);
+        }
+
+
+    }
+    </script>
+</body>
+</html>
