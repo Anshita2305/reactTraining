@@ -187,6 +187,56 @@ class Person1 {
     let t2: type3 = true;
     //let t3: type3 ="abc";
     
+    //Generics
+    function convertNumToArray(x:number,y:number):number[] {
+        return [x,y];
+}
+    
+function convertToArray<Type>(x:Type,y:Type):Type[] {
+    return [x,y];
+}
+    
+    let result1 = convertNumToArray(20,30);
+    console.log(result1);
 
+    let result2 = convertToArray<string>('hello','all');
+    console.log(result2);
+
+    let result3 = convertToArray<number>(20,30);
+    console.log(result3);
+    
+    class AccountManager<T> {
+        account: T;
+
+        constructor(account:T){
+            this.account = account;
+        }
+    }
+
+    const CheckingAccManager = new AccountManager<CheckingAccount>(new CheckingAccount(1,100,[1,2,3]));
+
+    //enums
+
+    const enum TransactionType{Deposit='D', Withdrawal='W', Transfer='T'};
+
+    const ttype:TransactionType = TransactionType.Deposit;
+    console.log(ttype);
+
+    // nullable chaining
+
+    type User = {name: string, password?: string, active: boolean}
+    const user: User = {name:"Matt", active: true};
+    console.log(user.password?.length || "no password set");
+
+    // casting
+
+    const e1 = document.getElementById('description') as HTMLInputElement;
+    console.log(e1);
+    
+    
+    
+
+
+    
 
 }

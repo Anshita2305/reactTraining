@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var _a;
 {
     var ag_1 = 20;
     //age='23';
@@ -152,4 +153,32 @@ var __extends = (this && this.__extends) || (function () {
     var t1 = 23;
     var t2 = true;
     //let t3: type3 ="abc";
+    //Generics
+    function convertNumToArray(x, y) {
+        return [x, y];
+    }
+    function convertToArray(x, y) {
+        return [x, y];
+    }
+    var result1 = convertNumToArray(20, 30);
+    console.log(result1);
+    var result2 = convertToArray('hello', 'all');
+    console.log(result2);
+    var result3 = convertToArray(20, 30);
+    console.log(result3);
+    var AccountManager = /** @class */ (function () {
+        function AccountManager(account) {
+            this.account = account;
+        }
+        return AccountManager;
+    }());
+    var CheckingAccManager = new AccountManager(new CheckingAccount(1, 100, [1, 2, 3]));
+    ;
+    var ttype = "D" /* TransactionType.Deposit */;
+    console.log(ttype);
+    var user = { name: "Matt", active: true };
+    console.log(((_a = user.password) === null || _a === void 0 ? void 0 : _a.length) || "no password set");
+    // casting
+    var e1 = document.getElementById('description');
+    console.log(e1);
 }
