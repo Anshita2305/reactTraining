@@ -1,0 +1,12 @@
+.page_header{
+    padding-left: 5px;
+    padding-right: 5px;
+    top:5px;
+    display: flex;
+    flex-direction: row;
+    background-color: burlywood;
+}
+
+.menu{
+    color: maroon;
+}
