@@ -1,3 +1,9 @@
 .transaction {
     align-self: center;
 }
+
+
+.transaction{
+display: flex;
+flex-direction:column;
+}

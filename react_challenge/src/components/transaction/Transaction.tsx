@@ -1,38 +1,47 @@
+import { count, log } from 'console';
+import { PaymentType, getAllPayments } from '../data/DataFunction';
 import './Transaction.css';
+import PaymentTableRow from './PaymentTableRow';
+import { ChangeEvent, useState } from 'react';
 
 function Transaction() {
-return(<div className="transaction">
 
+
+    const payments: PaymentType[] = getAllPayments();
+
+
+    const countries: string[] = Array.from(new Set(payments.map(payment => payment.country)));
+
+     const [selectedCountry, setSelectedCountry] = useState<string>(countries[0]);
+
+
+    // const [selCountry, setSelectedCountry] = useState<>[]
+
+    const onCountryChange = (e:ChangeEvent<HTMLSelectElement>) => {
+        // setSelectedCountry(e.target.value);
+    }
+
+
+return(<div className="transaction">
+<div className="transactionCountrySelector">
+Country <select onChange={onCountryChange}>
+    {countries.map(country =><option value={country} key={country}> {country}</option>)}
+    </select>
+    </div>    
 <table border={1}>
 
-<th>Id</th>
-<th>Date</th>
-<th>Country</th>
-<th>Currency</th>
-<th>Amount</th>
-<tr>
-<td>1</td>
-<td>19-3-2024</td>
-<td>USA</td>
-<td>USD</td>
-<td>160</td>
-</tr>
-<tr>
-<td>2</td>
-<td>12-3-2024</td>
-<td>FRA</td>
-<td>EUR</td>
-<td>200</td>
-</tr>
-<tr>
-<td>3</td>
-<td>21-3-2024</td>
-<td>SWE</td>
-<td>EUR</td>
-<td>100</td>
-</tr>
+        <th>Id</th>
+        <th>Amount</th>
+        <th>Order Id</th>
+        <th>Country</th>
+        <th>Currency</th>
 
+        <th>Date</th>
+       <tbody>
+        {payments.filter(payment => payment.country== selectedCountry).map(payment => <PaymentTableRow key = {payment.id} {...payment}></PaymentTableRow>)}
+       </tbody>
 </table>
+
 
 
 </div>);
