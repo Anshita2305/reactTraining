@@ -1,24 +1,39 @@
 import { count, log } from 'console';
-import { PaymentType, getAllPayments } from '../data/DataFunction';
+import { PaymentType, getAllPaymentRestVersion, getAllPayments, getAllPaymentsAxiosVersion } from '../data/DataFunction';
 import './Transaction.css';
 import PaymentTableRow from './PaymentTableRow';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 function Transaction() {
 
+    const [payments, setPayments] = useState<PaymentType[]>([]);
+   
+   
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const payments: PaymentType[] = getAllPayments();
+    const laodData = () => {
+    getAllPayments().then(response => response.json().then(data =>{setPayments(data)}));}
+
+    
+
+    //const payments: PaymentType[] = getAllPayments();
 
 
     const countries: string[] = Array.from(new Set(payments.map(payment => payment.country)));
-
-     const [selectedCountry, setSelectedCountry] = useState<string>(countries[0]);
-
-
-    // const [selCountry, setSelectedCountry] = useState<>[]
+    const [selectedCountry, setSelectedCountry] = useState<string>(countries[0]);
+    useEffect(() => {laodData()},[selectedCountry]); 
+//axios
+    const loadData = () => {
+        getAllPaymentsAxiosVersion()
+           .then(response => {
+                    setPayments(response.data);
+                   // setLoading(false);    
+                })
+    }
+    
 
     const onCountryChange = (e:ChangeEvent<HTMLSelectElement>) => {
-        // setSelectedCountry(e.target.value);
+         setSelectedCountry(e.target.value);
     }
 
 

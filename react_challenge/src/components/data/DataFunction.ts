@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from "axios"
+
 export type PaymentType =
     {id: number,
     amount: number,
@@ -9,7 +11,7 @@ export type PaymentType =
         taxRate: number,
         type: string}
 
-export const getAllPayments : () => PaymentType[] 
+export const getAllPaymentsOld : () => PaymentType[] 
     = () => { return [
         {id: 101, amount: 160, country: "USA", currency: "USD", date: "2017-01-31", orderId:"21216652", taxCode: 0, taxRate: 0, type: "SALE"},
         {id: 102, amount: 200, country: "FRA", currency: "EUR", date: "2017-02-01", orderId:"21216653", taxCode: 7, taxRate: 0.21, type: "SALE"},
@@ -24,4 +26,38 @@ export const getAllPayments : () => PaymentType[]
         {id: 111, amount: -150, country: "SWE", currency: "EUR", date: "2017-02-01", orderId:"21216662", taxCode: 19, taxRate: 0.25, type: "Refund"},
         {id: 112, amount: 600, country: "USA", currency: "USD", date: "2017-02-02", orderId:"21216663", taxCode: 0, taxRate: 0, type: "SALE"}
     ]
+}
+
+export const getAllPaymentRestVersion = () => {
+    const responsePromise: Promise<Response> = fetch("https://payments.multicode.uk/api/payment", {method:'GET', 
+    headers : {'Accept': 'application/json'}})
+
+    responsePromise.then(response => {
+        response.json().then(data => console.log(data)
+        )})
+        
+    }
+
+
+ export const getAllPayments = ():Promise<Response> => {
+
+    return fetch("https://payments.multicode.uk/api/payment", {method:'GET', 
+    headers : {'Accept': 'application/json'}})
+
+
+ }   
+
+ export const getAllPaymentsAxiosVersion = ():Promise<AxiosResponse<PaymentType[]>> =>{
+
+    const transactionPromise = axios<PaymentType[]>({url: 'https://payments.multicode.uk/api/payment', method:'GET', headers :{'Accept':'application/json'}});
+    return transactionPromise;
+
+
+ }
+
+ export const addNewTransaction = (payment: PaymentType) : Promise<AxiosResponse<PaymentType>> => {
+    return axios<PaymentType>({url : `https://payments.multicode.uk/api/payment`,
+        method: "POST",
+        headers : {'Accept': 'application/json', 'Content-Type' : 'application/json'},
+        data: payment});
 }
