@@ -20,7 +20,7 @@ new ModuleFederationPlugin({
 name : 'helloworld',
 filename : 'remoteEntry.js',
 exposes :
-{'./HelloWorld' : './src/index'}
+{'./HelloWorld' : './src/indexHelloWorld'}
 }
 )
 ],
